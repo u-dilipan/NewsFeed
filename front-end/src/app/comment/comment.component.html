@@ -1,0 +1,9 @@
+<div mat-dialog-content>
+    <mat-form-field class="example-full-width">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput [(ngModel)]="comment"></textarea>
+      </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial (click)="postComment()">Post Comment</button>
+</div>

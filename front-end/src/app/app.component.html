@@ -1,0 +1,45 @@
+
+<mat-toolbar color="primary">
+  <span>News Feed</span>
+  <span class="example-spacer1"></span>
+  <mat-form-field class="example-full-width">
+    <input matInput [(ngModel)]="searchString">
+  </mat-form-field>
+  <span class="example-spacer1"></span>
+  <button mat-raised-button color="accent" (click)="searchPost()">Search</button>
+  <span class="example-spacer"></span>
+  <button mat-raised-button color="secondary" (click)="openDialog()"> + New Post</button>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+
+  <mat-card class="example-card" *ngFor="let post of mPosts | keyvalue">
+    <mat-card-header>
+      <mat-card-title class="title">{{ post.value.title }}</mat-card-title>
+      <mat-card-subtitle>{{ post.value.source.name }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <img
+      mat-card-image
+      class="img-post"
+      src="{{ post.value.urlToImage }}"
+      alt=""
+    />
+    <mat-card-content>
+      <p>
+        {{ post.value.description }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions class="action-buttons">
+      <button mat-button color="white">
+        <mat-icon>thumb_up_alt</mat-icon> 12 Likes
+      </button>
+      <button mat-button color="white" (click)="openComment(post.key)">
+        <mat-icon>comment</mat-icon> Comments
+      </button>
+      <button mat-button color="white"><mat-icon>share</mat-icon> Share</button>
+    </mat-card-actions>
+    <app-comment *ngIf="mComments[post.key]"></app-comment>
+  </mat-card>
+
+</mat-sidenav-container>

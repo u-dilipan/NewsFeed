@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>New Post</h1>
+<div mat-dialog-content>
+  <p>What's the update today?</p>
+  <mat-form-field>
+    <mat-label>title</mat-label>
+    <input matInput [(ngModel)]="data.postTitle">
+  </mat-form-field>
+  <p>Have any Details for update?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.postDescription">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Post</button>
+</div>
