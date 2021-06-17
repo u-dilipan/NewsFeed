@@ -7,9 +7,9 @@
    ```
 2. Install NPM package and Run the application
    ```sh
-   // Backend 
+   # Backend 
    npm i && npm start
-   // Frontend
+   # Frontend
    cd front-end
    npm i && npm start
    ```
