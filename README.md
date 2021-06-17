@@ -9,6 +9,7 @@
    ```sh
    # Backend 
    npm i && npm start
+   
    # Frontend
    cd front-end
    npm i && npm start
