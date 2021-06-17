@@ -28,7 +28,7 @@ async function addPost(req, res) {
   }
   try {
     posts.push(post)
-    writeFile('Added')
+    await writeFile('Added')
   } catch (err) {
     console.log(err)
   }
@@ -44,7 +44,7 @@ async function updatePost(req, res) {
     const index = posts.findIndex((post) => post.id === id)
     if (index === -1) return res.status(404).send('Data not found')
     posts[index].comment = comment
-    writeFile('Updated')
+    await writeFile('Updated')
   } catch (err) {
     console.log(err)
   }
@@ -59,7 +59,7 @@ async function deletePost(req, res) {
     const index = posts.findIndex((post) => post.id === id)
     if (index === -1) return res.status(404).send('Data not found')
     posts.splice(index, 1)
-    writeFile('Deleted')
+    await writeFile('Deleted')
   } catch (err) {
     console.log(err)
   }
