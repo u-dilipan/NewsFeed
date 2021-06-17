@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { NewsApiService } from './news-api.service';
+import { NewsFeedApiService } from './newsfeed-api.service';
 import { MatDialog } from '@angular/material/dialog';
 
 import { DialogComponent } from './dialog/dialog.component';
@@ -11,35 +11,29 @@ import { DialogComponent } from './dialog/dialog.component';
 })
 export class AppComponent {
 
-  mPosts: Array<any>;
+  mPosts: Array<any> = [];
   mComments: Array<boolean> = [];
 
   postTitle: string;
   postDescription: string;
   searchString: string;
 
-  constructor(private newsapi: NewsApiService, public dialog: MatDialog) {
+  constructor(private newsapi: NewsFeedApiService, public dialog: MatDialog) {
   }
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
 
     this.newsapi.initPosts().subscribe(data => {
-      this.mPosts = data['articles'];
+      for(let post in data){
+        this.mPosts.push(data[post]); 
+      }
       if(this.mPosts) {
         for (let i = 0; i < this.mPosts.length; i++) {
           this.mComments.push(false);
         }
       }
     });
-  
-  }
-
-  searchPost() {
-    if(!this.searchString) 
-      return;
-    this.searchString = null;
-    // this.newsapi.getPostByID(source).subscribe(data => this.mPosts = data['articles']);
   }
 
   openDialog(): void {
@@ -49,12 +43,51 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      //console.log(result);
+      if(result && result.postTitle && result.postDescription) {
+        this.mPosts = [];
+        this.newsapi.addNewPost({
+          title: result.postTitle,
+          description: result.postDescription 
+        }).subscribe(data => {
+          for(let post in data){
+            this.mPosts.push(data[post]); 
+          }
+        });
+      }
+      else {
+        console.log('Fill all details')
+      }
     });
+  }
+
+  searchPost() {
+    if(!this.searchString) 
+      return;
+    this.mPosts = [];
+    this.newsapi.searchPostsByID(this.searchString).subscribe(data => this.mPosts.push(data));
+    this.searchString = null;
   }
 
   openComment(key: any): void {
     this.mComments[key] = !this.mComments[key];
+  }
+
+  deletePost(id: string) {
+    this.mPosts = [];
+    this.newsapi.deletePostByID(id).subscribe(data => {
+      for(let post in data){
+        this.mPosts.push(data[post]); 
+      }
+    });
+  }
+
+  postComment(data: any) {
+    this.mPosts = [];
+    this.newsapi.updatePostById(data.id, data.comment).subscribe(data => {
+      for(let post in data){
+        this.mPosts.push(data[post]); 
+      }
+    });
   }
 
 }
