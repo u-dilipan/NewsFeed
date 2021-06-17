@@ -5,7 +5,7 @@
    ```sh
    https://github.com/u-dilipan/NewsFeed.git
    ```
-2. Install NPM packages && Run the application
+2. Install NPM package and Run the application
    ```sh
    // Backend 
    npm i && npm start
