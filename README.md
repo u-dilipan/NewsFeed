@@ -5,18 +5,11 @@
    ```sh
    https://github.com/u-dilipan/NewsFeed.git
    ```
-2. Install NPM packages
+2. Install NPM packages && Run the application
    ```sh
-   npm i 
+   // Backend 
+   npm i && npm start
+   // Frontend
    cd front-end
-   npm i
-   ```
-3. Run the back end application
-   ```sh
-   npm start
-   ```
-4. Run the front end application
-   ```sh
-   cd front-end
-   npm start
+   npm i && npm start
    ```
